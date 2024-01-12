@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h2>You want to show your tasks??</h2>
+    <a class="btn btn-primary" aria-current="page" href="{% url 'task:show_task' %}">Show Tasks</a>
+</div>
+{% endblock %}

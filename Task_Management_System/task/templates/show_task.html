@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5 class="text-center mt-3">Total Tasks: {{t_data | length}}</h5>
+
+<div class="container row row-cols-1 row-cols-md-3 g-4 mx-auto mt-3 mb-5">
+    {% for tasks in t_data %}
+    <div class="col ">
+        <div class="card ">
+            <div class="card-header fw-bold ">
+                Task ID: {{tasks.id}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Task: {{tasks.task_title}}</h5>
+                <p class="card-text">{{tasks.task_description}}</p>
+                <p class="card-text"><span class="text-danger fw-bold ">Category:</span>
+                    {% for cat in tasks.category.all %}
+                    <button class="btn btn-secondary  btn-sm m-2" disabled>{{cat.category_name}} </button>
+                    {% endfor %}
+                </p>
+                {% if tasks.is_completed == False %}
+                <div>
+                    <a href="{% url 'task:edit_task' tasks.id%}" class="btn btn-primary btn-sm ">Edit</a>
+                    <a href="{% url 'task:delete_task' tasks.id%}" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+                {% else %}
+                <h4 class="fw-bold ">Completed</h4>
+                {% endif %}
+            </div>
+            <div class="card-footer text-body-secondary">
+                Assigned: {{tasks.task_assign_date}}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
